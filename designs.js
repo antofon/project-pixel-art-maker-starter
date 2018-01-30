@@ -12,13 +12,12 @@ var pixelCanvas = $("#pixelCanvas");
 3. Set the size of the cross stitch canvas as an N by M grid with the makeGrid() function. Use your knowledge of JavaScript loops to dynamically clear and create the table based on user input. Each cell should have an event listener that sets the background color of the cell to the selected color. */
 
 function makeGrid(htVal, wtVal) {
+  //use index var to create unique IDs for each row
+  //this ensures that when columns (<td></td>) are appended, they will be appended to unique IDs, not all rows (<tr></tr>)
   var index = 0;
   for (var i = 0; i < htVal; i++) {
-    console.log("row: " + i);
     pixelCanvas.append("<tr id='row" + index + "'></tr>");
     for (var j = 0; j < wtVal; j++) {
-      console.log("col: " + j);
-      console.log("index: " + index);
       $("#row" + index).append('<td></td>');
     }
     index++;
@@ -26,10 +25,12 @@ function makeGrid(htVal, wtVal) {
 }
 // When size is submitted by the user, call makeGrid()
 submit.on("click", function(event) {
+  //clear Canvas after each user submission
+  $("#pixelCanvas").html("");
+  //capture values for height and width of canvas
   htVal = $("#inputHeight").val();
   wtVal = $("#inputWidth").val();
-  console.log(htVal);
-  console.log(wtVal);
   makeGrid(htVal, wtVal);
+  //prevent the default functionality of the submit button from occurring
   event.preventDefault();
 });
