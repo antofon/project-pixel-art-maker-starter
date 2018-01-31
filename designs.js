@@ -64,7 +64,7 @@ reset.click(function(event) {
   // clears previous Canvas
   $("#pixelCanvas").html("");
   // set default colorPicker back to Black
-  $("#colorPicker").val("#fff");
+  $("#colorPicker").val("#ffffff");
   //on Reset, grid will be 1x1
   htVal = wtVal = 1;
   makeGrid(htVal, wtVal);
