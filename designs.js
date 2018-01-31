@@ -7,6 +7,8 @@ var wtVal = 0;
 var color = null;
 // Select submit button
 var submit = $(":submit");
+//select reset button
+var reset = $(":reset");
 //select canvas
 var pixelCanvas = $("#pixelCanvas");
 
@@ -38,14 +40,32 @@ $("#colorPicker").on("change", function() {
   color = $(this).val();
 });
 
+//display Canvas after each user submission
+/* works similar to reset function but should be used
+when you want to altere the grid size */
 submit.click(function(event) {
-  //clear Canvas after each user submission
-  $("#pixelCanvas").html("");
-  //capture values for height and width of canvas
+  // disable the submit button, must click 'Reset' to enable
+  $(this).prop('disabled', 'true');
+  /*if did not disable submit button, clears previous Canvas, to prevent additional cells from accumulating
+  $("#pixelCanvas").html("");*/
+  //capture values for color, height, and width of canvas
   color = $("#colorPicker").val();
   htVal = $("#inputHeight").val();
   wtVal = $("#inputWidth").val();
   makeGrid(htVal, wtVal);
   //prevent the default functionality of the submit button from occurring
   event.preventDefault();
+});
+
+//clear Canvas after each user submission
+reset.click(function(event) {
+  /* remove attr entirely. aware of prop() vs. attr() situation with disabled. however this removes the property and accomplishes what I want */
+  submit.removeAttr('disabled');
+  // clears previous Canvas
+  $("#pixelCanvas").html("");
+  // set default colorPicker back to Black
+  $("#colorPicker").val("#fff");
+  //on Reset, grid will be 1x1
+  htVal = wtVal = 1;
+  makeGrid(htVal, wtVal);
 });
