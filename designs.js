@@ -1,6 +1,8 @@
 // Select color input
 var colorPicker = $("#colorPicker");
-// Select size input for table
+//select canvas
+var pixelCanvas = $("#pixelCanvas");
+// Select size input for N x M table
 var htVal = 0;
 var wtVal = 0;
 //select Color
@@ -9,8 +11,6 @@ var color = null;
 var submit = $(":submit");
 //select reset button
 var reset = $(":reset");
-//select canvas
-var pixelCanvas = $("#pixelCanvas");
 
 function makeGrid(htVal, wtVal) {
   //use index var to create unique IDs for each row and cell (cell1 in row 0 and cell1 in row1 make up col1)
@@ -39,7 +39,6 @@ function makeGrid(htVal, wtVal) {
 $("#colorPicker").on("change", function() {
   color = $(this).val();
 });
-
 //display Canvas after each user submission
 /* works similar to reset function but should be used
 when you want to altere the grid size */
@@ -64,8 +63,8 @@ reset.click(function(event) {
   // clears previous Canvas
   $("#pixelCanvas").html("");
   // set default colorPicker back to Black
-  $("#colorPicker").val("#ffffff");
-  //on Reset, grid will be 1x1
-  htVal = wtVal = 1;
+  $("#colorPicker").val("#000000");
+  //on Reset, grid values will be 0 instead of 1. this is because if the values were 1, makeGrid would create a 1x1 grid already having a <tr id="row0"></tr>. Then in the loop, the first <tr></tr> would have a row0 and there would be duplicate IDs, causing a bug
+  htVal = wtVal = 0;
   makeGrid(htVal, wtVal);
 });
